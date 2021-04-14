@@ -24,6 +24,7 @@
         <p>Simmer strawberries fairly, then mix with red wine and serve regularly canned in ice blender.</p>
       </main>
       <footer>
+        <AppCommentForm @onComment="commentHandler" v-if="canAddComment"/>
         <div class="comments" v-if="true">
             <AppComment :comment="{}" v-for="comment in 4" :key="comment"/>
         </div>
@@ -36,13 +37,23 @@
 
 <script>
   import AppComment from '@/components/main/Comment'
+  import AppCommentForm from '@/components/main/CommentForm'
     export default {
       components:{
-        AppComment
+        AppComment, AppCommentForm
       },
+
       validate({params}){
           return Boolean(params.id)
       },
+      data:()=>({
+        canAddComment:true
+      }),
+      methods:{
+        commentHandler(){
+          this.canAddComment = false
+        }
+      }
 
     }
 </script>
