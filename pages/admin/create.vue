@@ -1,10 +1,10 @@
 <template>
-    <h1>Admin main page</h1>
+    <div>create</div>
 </template>
 
 <script>
     export default {
-        layout:"admin",
+      layout:'admin',
       middleware:['admin-auth']
     }
 </script>
