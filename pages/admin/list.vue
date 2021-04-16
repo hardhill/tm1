@@ -23,16 +23,20 @@
     <el-table-column
       label="Operations">
       <template slot-scope="{row}">
-        <el-button
-          circle
-          icon="el-icon-edit"
-          type="primary"
-          @click="open(row._id)"></el-button>
+        <el-tooltip effect="light" content="Edit record" placement="left">
+          <el-button
+            circle
+            icon="el-icon-edit"
+            type="primary"
+            @click="open(row._id)"></el-button>
+        </el-tooltip>
+        <el-tooltip effect="dark" content="Delete" placement="right">
         <el-button
           circle
           icon="el-icon-delete"
           type="danger"
           @click="remove(row._id)"></el-button>
+        </el-tooltip>
       </template>
     </el-table-column>
   </el-table>
@@ -47,12 +51,33 @@
         const posts = await store.dispatch('post/fetchAdminPosts')
         return {posts}
       },
+
       methods:{
         open(id){
-
+          this.$router.push(`/admin/post/${id}`)
         },
-        remove(id){
+        async remove(id){
+          try{
+            await this.$confirm('Do you want delete this post?','Attention!',{
+              confirmButtonText: 'OK',
+              cancelButtonText: 'Cancel',
+              type: 'warning'
+            }).then(async()=>{
+              await this.$store.dispatch('post/remove',id)
+              this.posts = this.posts.filter(p=>p._id!=id)
+              this.$message({
+                type: 'success',
+                message: 'Delete completed'
+              })
+            }).catch(()=>{
+              this.$message({
+                type: 'info',
+                message: 'Delete canceled'
+              })
+            })
+          }catch(e){
 
+          }
         }
       }
     }
