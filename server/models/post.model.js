@@ -24,4 +24,4 @@ const postSchema = new Schema({
     ref:'comments'
   }]
 })
-model.exports = model('posts',postSchema)
+module.exports = model('posts',postSchema)

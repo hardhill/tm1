@@ -1,5 +1,10 @@
+const Cookie = require('cookie')
+const Cookies = require('js-cookie')
+import  jwtDecode from 'jwt-decode'
+
+
 export const state = ()=>({
-  token: null         //remove later and set null
+  token: null         //remove 'true' later and set null
 })
 export const mutations = {
   setToken(state,token) {
@@ -14,7 +19,6 @@ export const actions = {
     try {
 
       const {token} = await this.$axios.$post('/api/auth/admin/login', formData)
-      console.log('token',token)
       dispatch('setToken', token)
     }catch(e){
       commit('setError',e,{root:true})
@@ -23,16 +27,47 @@ export const actions = {
   },
   async createUser({commit},formData){
     try{
-      console.log('User was created')
-    }catch(e){}
+      await this.$axios.$post('/api/auth/admin/create',formData).then((data)=>{
+
+      }).catch((error)=>{
+
+      })
+    }catch(e){
+      commit('setError',e,{root:true})
+      throw e
+    }
   },
   setToken({commit},token){
     commit('setToken',token)
+    this.$axios.setToken(token,'Bearer')
+    Cookies.set('jwt-token',token)
   },
   logout({commit}){
+    this.$axios.setToken(false)
     commit('clearToken')
+    Cookies.remove('jwt-token')
+  },
+  autoLogin({dispatch}){
+    const cookieStr = process.browser?document.cookie:this.app.context.req.headers.cookie
+    const cookies = Cookie.parse(cookieStr || '') || {}
+    const token = cookies['jwt-token']
+    if(isJWTtokenValid(token)){
+      dispatch('setToken', token)
+    }else{
+      dispatch('logout')
+    }
   }
 }
 export const getters ={
-  isAuthenticated: state => Boolean(state.token)
+  isAuthenticated: state => Boolean(state.token),
+  token:state=>state.token
+}
+
+function isJWTtokenValid(token){
+  if(!token){
+    return false
+  }
+  const jwtData = jwtDecode(token) || {}
+  const expires = jwtData.exp || 0
+  return (new Date().getTime()/1000)<expires
 }

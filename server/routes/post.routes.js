@@ -5,12 +5,12 @@ const ctr = require('../controllers/post.controller')
 
 const router = Router()
 //Administration route
-// /api/post/admin/
+// /api/post/admin
 router.post(
   '/admin/',
   passport.authenticate('jwt',{session:false}),
   upload.single('image'),
-  ctr.create
+  ctr.createPost
 )
 router.get('/admin/',passport.authenticate('jwt',{session:false}), ctr.getAll)
 router.get('/admin/:id',passport.authenticate('jwt',{session:false}), ctr.getById)

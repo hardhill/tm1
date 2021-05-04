@@ -68,6 +68,9 @@
         case 'logout':
           this.$message.success('You leave us')
           break
+        case 'session':
+          this.$message.warning('Time session is end. Login again')
+          break
       }
 
     }

@@ -9,11 +9,12 @@ const passportStrategy = require('./middlewares/passport-strategy')
 const keys = require('./keys')
 const authRoutes = require('./routes/auth.routes')
 const postRoutes = require('./routes/post.routes')
+const commentRoutes = require('./routes/comment.routes')
 
 
 
 
-
+app.use(cors())
 mongo.connect(keys.MONGO_URI)
   .then(()=>console.log('Connected database'))
   .catch((error)=>console.log(error))
@@ -22,12 +23,13 @@ app.use(passport.initialize())
 passport.use(passportStrategy)
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
-app.use(cors())
+
 
 
 // регистрация роутов
 app.use('/auth',authRoutes)
 app.use('/post', postRoutes)
+app.use('/comment',commentRoutes)
 
 
 
