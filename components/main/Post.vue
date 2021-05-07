@@ -1,20 +1,20 @@
 <template>
     <el-card class="post" shadow="hover">
       <header slot="header" class="post-header">
-        <h3>Post title</h3>
+        <h3>{{post.title}}</h3>
         <small>
           <i class="el-icon-time"></i>
-          {{new Date().toLocaleString()}}
+          {{new Date(post.date).toLocaleString()}}
         </small>
       </header>
       <div class="post-body">
-        <img src="https://www.steigenberger.com/cache/images/berlin_fotolia_93887_2206ae4123b62425d56a38c.jpg" alt="post image" class="post-img"/>
+        <img :src="post.imageUrl" alt="post image" class="post-img"/>
       </div>
       <footer class="post-footer">
         <el-button round @click="viewPost">View</el-button>
         <span>
           <i class="el-icon-message"></i>
-          12
+          {{post.comments.length}}
         </span>
       </footer>
     </el-card>
@@ -23,9 +23,15 @@
 <script>
     export default {
         name: "Post",
+      props:{
+        post:{
+          type:Object,
+          required:true
+        }
+      },
       methods:{
           viewPost(){
-            const id = 2
+            const id = this.post._id
             this.$router.push(`/post/${id}`)
           }
       }

@@ -1,7 +1,7 @@
 const Comment = require('../models/comment.model')
 const Post = require('../models/post.model')
 
-module.exports.create = async (req,res)=>{
+module.exports.createComment = async (req,res)=>{
   try{
     const comment = new Comment({
       name: req.body.name,
@@ -9,7 +9,7 @@ module.exports.create = async (req,res)=>{
       postId: req.body.postId
     })
     await comment.save()
-    const post = Post.findById(req.body.postId)
+    const post = await Post.findById(comment.postId)
     post.comments.push(comment._id)
     await post.save()
     res.status(201).json(comment)

@@ -1,13 +1,12 @@
 <template>
     <el-card class="comment">
       <div class="comment-header">
-        <span>Person name</span>
+        <span>{{comment.name}}</span>
         <span><i class="el-icon-time"></i>
-          {{new Date().toLocaleString()}}</span>
+          {{new Date(comment.date).toLocaleString()}}</span>
       </div>
       <div class="comment-text">
-        <p>Captain of a bare courage, contact the advice!</p>
-        <p>Per guest prepare half a kilo of peppermint tea with peelled blood oranges for dessert.</p>
+        {{comment.text}}
       </div>
     </el-card>
 </template>

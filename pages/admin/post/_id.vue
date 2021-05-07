@@ -41,8 +41,8 @@
       }
     },
     async asyncData({store, params}){
-      const post = await store.dispatch('post/fetchAdminPostById',params.id)
-      return {post}
+      const result = await store.dispatch('post/fetchAdminPostById',params.id)
+      return {post:result.data}
     },
     data: () => ({
       loading: false,
@@ -56,6 +56,9 @@
         ]
       }
     }),
+    mounted() {
+      this.controls.text = this.post.text
+    },
     methods:{
       onSubmit(){
         this.$refs['form'].validate(async valid=>{

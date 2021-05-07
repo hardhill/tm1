@@ -48,8 +48,8 @@
       layout:'admin',
       middleware:['admin-auth'],
       async asyncData({store}){
-        const posts = await store.dispatch('post/fetchAdminPosts')
-        return {posts}
+        const result = await store.dispatch('post/fetchAdminPosts')
+        return {posts:result.data}
       },
 
       methods:{

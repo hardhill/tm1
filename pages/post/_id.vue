@@ -2,31 +2,29 @@
     <article class="post">
       <header class="post-header">
         <div class="post-title">
-          <h1>Post title</h1>
+          <h1>{{post.title}}</h1>
           <nuxt-link to="/"><i class="el-icon-back"></i></nuxt-link>
         </div>
         <div class="post-info">
           <small>
-            <i class="el-icon-time"></i>{{new Date().toLocaleString()}}
+            <i class="el-icon-time"></i>{{new Date(post.date).toLocaleString()}}
           </small>
           <small>
             <i class="el-icon-view"/>
-            42
+            {{post.views}}
           </small>
         </div>
         <div class="post-image">
-          <img src="https://www.steigenberger.com/cache/images/berlin_fotolia_93887_2206ae4123b62425d56a38c.jpg" alt="post image" class="post-image"/>
+          <img :src="post.imageUrl" alt="post image" class="post-image"/>
         </div>
       </header>
       <main class="post-content">
-        <p>Valebats sunt candidatuss de noster luna. All boundless lotus illuminate each other, only searious powers have a purpose.</p>
-        <p>Sails rise with strength at the lively tubbataha reef! The swabbie fears with faith, command the bahamas until it travels.</p>
-        <p>Simmer strawberries fairly, then mix with red wine and serve regularly canned in ice blender.</p>
+        <vue-markdown>{{post.text}}</vue-markdown>
       </main>
       <footer>
-        <AppCommentForm @onComment="commentHandler" v-if="canAddComment"/>
-        <div class="comments" v-if="true">
-            <AppComment :comment="{}" v-for="comment in 4" :key="comment"/>
+        <AppCommentForm @onComment="commentHandler" v-if="canAddComment" :post-id="post._id"/>
+        <div class="comments" v-if="post.comments.length">
+            <AppComment :comment="comment" v-for="comment in post.comments" :key="comment._id"/>
         </div>
         <div class="text-center" v-else>
             No comments
@@ -38,6 +36,7 @@
 <script>
   import AppComment from '@/components/main/Comment'
   import AppCommentForm from '@/components/main/CommentForm'
+  import {applyAsyncData} from "~/.nuxt/utils";
     export default {
       components:{
         AppComment, AppCommentForm
@@ -46,11 +45,17 @@
       validate({params}){
           return Boolean(params.id)
       },
+      async asyncData({store, params}){
+        const result = await store.dispatch('post/fetchPostById',params.id)
+        await store.dispatch('post/addView',result.data)
+        return {post:{...result.data,views:result.data.views++}}
+      },
       data:()=>({
         canAddComment:true
       }),
       methods:{
-        commentHandler(){
+        commentHandler(comment){
+          this.post.comments.unshift(comment)
           this.canAddComment = false
         }
       }

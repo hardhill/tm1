@@ -17,6 +17,12 @@
 <script>
   export default {
     name: "CommentForm",
+    props:{
+      postId:{
+        type:String,
+        required:true
+      }
+    },
     data() {
       return {
         loading:false,
@@ -36,17 +42,19 @@
     },
     methods:{
       onSubmit(){
-        this.$refs['form'].validate((valid) => {
+        this.$refs['form'].validate(async (valid) => {
           if (valid) {
             this.loading = true
             const formData = {
               name:this.controls.name,
               text:this.controls.text,
-              postId:''
+              postId:this.postId
             }
             try{
+              const newComment = await this.$store.dispatch('comment/create',formData)
               this.$message.success('Comment is added')
-              this.$emit('onComment')
+
+              this.$emit('onComment',newComment.data)
             }catch(e){
 
             }
