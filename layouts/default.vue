@@ -3,14 +3,17 @@
     <el-header>
       <AppNavigation/>
     </el-header>
-    <el-main><nuxt/></el-main>
+    <el-main>
+      <nuxt/>
+    </el-main>
     <el-footer/>
   </el-container>
 </template>
 <script>
   import AppNavigation from '@/components/main/Navigation'
+
   export default {
-    components:{
+    components: {
       AppNavigation
     }
   }

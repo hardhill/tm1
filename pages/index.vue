@@ -1,10 +1,10 @@
 <template>
-  <el-row type="flex" align="center" justify="center">
-    <el-col :xs="24" :sm="20" :md="16" :lg="12" :xl="8">
+  <el-row align="center" justify="center" type="flex">
+    <el-col :lg="12" :md="16" :sm="20" :xl="8" :xs="24">
       <AppPost
-        v-for="post in posts"
         :key="post._id"
-        :post = "post"
+        :post="post"
+        v-for="post in posts"
       />
     </el-col>
   </el-row>
@@ -12,18 +12,19 @@
 
 <script>
   import AppPost from '@/components/main/Post'
-export default {
-    head:{
-      title:'Главный'
+
+  export default {
+    head: {
+      title: 'Главный'
     },
-    components:{
+    components: {
       AppPost
     },
-  async asyncData({store}){
+    async asyncData({store}) {
       const result = await store.dispatch('post/fetchPosts')
-      return {posts:result.data}
+      return {posts: result.data}
+    }
   }
-}
 </script>
 
 <style>

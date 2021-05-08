@@ -1,8 +1,8 @@
 <template>
-  <el-menu :style="{height:'100%'}"
-          router
-          :default-active="$route.path"
-    >
+  <el-menu :default-active="$route.path"
+           :style="{height:'100%'}"
+           router
+  >
     <el-menu-item index="/admin">
       <i class="el-icon-menu"></i>
       <span>Analitics</span>
@@ -28,9 +28,9 @@
 </template>
 
 <script>
-    export default {
-        name: "Aside"
-    }
+  export default {
+    name: "Aside"
+  }
 </script>
 
 <style scoped>

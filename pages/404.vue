@@ -1,11 +1,9 @@
 <template>
-    <h2>ERROR 404</h2>
+  <h2>ERROR 404</h2>
 </template>
 
 <script>
-    export default {
-
-    }
+  export default {}
 </script>
 
 <style scoped>

@@ -1,27 +1,27 @@
 <template>
-  <el-form class="mb2" :model="controls" :rules="rules" ref="form" @submit.native.prevent="onSubmit">
+  <el-form :model="controls" :rules="rules" @submit.native.prevent="onSubmit" class="mb2" ref="form">
     <h1>Create new post</h1>
     <el-form-item label="Post title" prop="title">
       <el-input v-model="controls.title"></el-input>
     </el-form-item>
     <el-form-item label="Text as md or html" prop="text">
-      <el-input v-model="controls.text" type="textarea" :rows="10"></el-input>
+      <el-input :rows="10" type="textarea" v-model="controls.text"></el-input>
     </el-form-item>
-    <el-button class="mb" type="success" round plain @click="previewDialog=true">Preview</el-button>
-    <el-dialog title="Preview" :visible.sync="previewDialog">
+    <el-button @click="previewDialog=true" class="mb" plain round type="success">Preview</el-button>
+    <el-dialog :visible.sync="previewDialog" title="Preview">
       <span :key="controls.text">
         <vue-markdown>{{controls.text}}</vue-markdown>
       </span>
-      <span slot="footer" class="dialog-footer">
-      <el-button type="primary" @click="previewDialog = false">OK</el-button>
+      <span class="dialog-footer" slot="footer">
+      <el-button @click="previewDialog = false" type="primary">OK</el-button>
       </span>
     </el-dialog>
     <el-upload
+      :auto-upload="false"
+      :on-change="handleImageChange"
+      action="https://jsonplaceholder.typicode.com/posts/"
       class="mb"
       drag
-      action="https://jsonplaceholder.typicode.com/posts/"
-      :on-change="handleImageChange"
-      :auto-upload="false"
       ref="upload"
     >
       <i class="el-icon-upload"></i>
@@ -29,7 +29,7 @@
       <div class="el-upload__tip" slot="tip">jpg/png files with a size less than 500kb</div>
     </el-upload>
     <el-form-item>
-      <el-button type="primary" native-type="submit" :loading="loading" round>Save</el-button>
+      <el-button :loading="loading" native-type="submit" round type="primary">Save</el-button>
     </el-form-item>
 
   </el-form>
@@ -54,7 +54,7 @@
           {required: true, message: 'Title must not empty', trigger: 'blur'}
         ]
       },
-      image:null
+      image: null
     }),
     methods: {
       onSubmit() {
@@ -79,13 +79,13 @@
               this.loading = false
             }
 
-          }else{
+          } else {
             this.$message.warning('Form is not valid')
           }
         })
       },
-      handleImageChange(file,fileList){
-       this.image = file.raw
+      handleImageChange(file, fileList) {
+        this.image = file.raw
       }
     }
   }

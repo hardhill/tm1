@@ -1,8 +1,8 @@
 const Comment = require('../models/comment.model')
 const Post = require('../models/post.model')
 
-module.exports.createComment = async (req,res)=>{
-  try{
+module.exports.createComment = async (req, res) => {
+  try {
     const comment = new Comment({
       name: req.body.name,
       text: req.body.text,
@@ -13,7 +13,7 @@ module.exports.createComment = async (req,res)=>{
     post.comments.push(comment._id)
     await post.save()
     res.status(201).json(comment)
-  }catch(e){
+  } catch (e) {
     res.status(500).json(e)
   }
 }

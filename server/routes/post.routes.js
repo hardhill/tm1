@@ -8,20 +8,20 @@ const router = Router()
 // /api/post/admin
 router.post(
   '/admin/',
-  passport.authenticate('jwt',{session:false}),
+  passport.authenticate('jwt', {session: false}),
   upload.single('image'),
   ctr.createPost
 )
-router.get('/admin/',passport.authenticate('jwt',{session:false}), ctr.getAll)
-router.get('/admin/:id',passport.authenticate('jwt',{session:false}), ctr.getById)
-router.put('/admin/:id',passport.authenticate('jwt',{session:false}), ctr.updatePost)
-router.delete('/admin/:id',passport.authenticate('jwt',{session:false}), ctr.remove)
+router.get('/admin/', passport.authenticate('jwt', {session: false}), ctr.getAll)
+router.get('/admin/:id', passport.authenticate('jwt', {session: false}), ctr.getById)
+router.put('/admin/:id', passport.authenticate('jwt', {session: false}), ctr.updatePost)
+router.delete('/admin/:id', passport.authenticate('jwt', {session: false}), ctr.remove)
 
 //Base part
 // /api/post
-router.get('/',ctr.getAll)
-router.get('/:id',ctr.getById)
-router.put('/add/view/:id',ctr.addView)
+router.get('/', ctr.getAll)
+router.get('/:id', ctr.getById)
+router.put('/add/view/:id', ctr.addView)
 
 
 module.exports = router

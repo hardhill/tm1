@@ -2,18 +2,18 @@
   <el-card
     :style="{width:'500px'}"
   >
-    <el-form :model="controls" :rules="rules" ref="form" @submit.native.prevent="onSubmit">
+    <el-form :model="controls" :rules="rules" @submit.native.prevent="onSubmit" ref="form">
       <h1>Login as admin</h1>
       <el-form-item label="Login" prop="login">
         <el-input v-model="controls.login"></el-input>
       </el-form-item>
       <div class="mb2">
         <el-form-item label="Password" prop="password">
-          <el-input v-model="controls.password" type="password"></el-input>
+          <el-input type="password" v-model="controls.password"></el-input>
         </el-form-item>
       </div>
       <el-form-item>
-        <el-button type="primary" native-type="submit" :loading="loading">Login</el-button>
+        <el-button :loading="loading" native-type="submit" type="primary">Login</el-button>
       </el-form-item>
 
     </el-form>

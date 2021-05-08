@@ -12,7 +12,7 @@
   export default {
     layout: "admin",
     middleware: ['admin-auth'],
-    components:{ MyChart}
+    components: {MyChart}
   }
 </script>
 

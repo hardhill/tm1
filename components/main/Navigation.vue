@@ -1,21 +1,21 @@
 <template>
-    <nav>
-      <h1>SSR blog</h1>
-    </nav>
+  <nav>
+    <h1>SSR blog</h1>
+  </nav>
 </template>
 
 <script>
-    export default {
-        name: "Navigation"
-    }
+  export default {
+    name: "Navigation"
+  }
 </script>
 
 <style lang="scss" scoped>
-nav{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  border-bottom: 1px solid #e6e6e6;
-}
+  nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border-bottom: 1px solid #e6e6e6;
+  }
 </style>

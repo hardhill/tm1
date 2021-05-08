@@ -12,26 +12,21 @@ const postRoutes = require('./routes/post.routes')
 const commentRoutes = require('./routes/comment.routes')
 
 
-
-
 app.use(cors())
 mongo.connect(keys.MONGO_URI)
-  .then(()=>console.log('Connected database'))
-  .catch((error)=>console.log(error))
+  .then(() => console.log('Connected database'))
+  .catch((error) => console.log(error))
 
 app.use(passport.initialize())
 passport.use(passportStrategy)
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
 
-
 // регистрация роутов
-app.use('/auth',authRoutes)
+app.use('/auth', authRoutes)
 app.use('/post', postRoutes)
-app.use('/comment',commentRoutes)
-
-
+app.use('/comment', commentRoutes)
 
 
 // test route - line below
