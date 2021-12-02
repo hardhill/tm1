@@ -1,5 +1,4 @@
 # tm1
-<<<<<<< HEAD
 
 ## Build Setup
 
@@ -19,7 +18,3 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
-=======
-учебный проект по курсу Владилена Минина 
-NUXTJS
->>>>>>> origin/master
